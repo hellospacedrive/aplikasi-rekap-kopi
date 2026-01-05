@@ -1,5 +1,42 @@
-<h1>Halo! Website ini jalan di Cloudflare dan pakai Supabase.</h1>
-<script>
-  // Di sini nanti tempat kamu naruh URL dan API Key Supabase
-  console.log("Vibe coding dimulai!");
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Vibe App</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <h1>Kirim Pesan ke Supabase 🚀</h1>
+    
+    <input type="text" id="inputPesan" placeholder="Ketik sesuatu...">
+    <button onclick="kirimData()">Kirim!</button>
+
+    <p id="status"></p>
+
+    <script>
+        // GANTI DENGAN URL & KEY KAMU YANG TADI
+        const SB_URL = 'https://ojqhfrulcwccpcsfmeae.supabase.co';
+        const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9qcWhmcnVsY3djY3Bjc2ZtZWFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc2NDMzODIsImV4cCI6MjA4MzIxOTM4Mn0.xLZHAdKCRCRpYT1Lv8UUiLjcz3YxUJTIUJWHJtOe3gY';
+        
+        const supabase = supabase.createClient(SB_URL, SB_KEY);
+
+        async function kirimData() {
+            const pesan = document.getElementById('inputPesan').value;
+            const status = document.getElementById('status');
+
+            status.innerText = "Sedang mengirim...";
+
+            // Perintah untuk simpan ke tabel 'pesan_vibe'
+            const { error } = await supabase
+                .from('pesan_vibe')
+                .insert([{ isi_pesan: pesan }]);
+
+            if (error) {
+                status.innerText = "Gagal: " + error.message;
+            } else {
+                status.innerText = "Berhasil masuk ke Supabase! ✅";
+                document.getElementById('inputPesan').value = "";
+            }
+        }
+    </script>
+</body>
+</html>
