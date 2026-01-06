@@ -1,42 +1,50 @@
+
 <!DOCTYPE html>
-<html>
-<head>
-    <title>My Vibe App</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-</head>
-<body>
-    <h1>Kirim Pesan ke Supabase 🚀</h1>
-    
-    <input type="text" id="inputPesan" placeholder="Ketik sesuatu...">
-    <button onclick="kirimData()">Kirim!</button>
-
-    <p id="status"></p>
-
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Br4da Coffee Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f8fafc;
+      }
+      /* Hide scrollbar for clean mobile look */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
     <script>
-        // GANTI DENGAN URL & KEY KAMU YANG TADI
-        const SB_URL = 'https://ojqhfrulcwccpcsfmeae.supabase.co';
-        const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9qcWhmcnVsY3djY3Bjc2ZtZWFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc2NDMzODIsImV4cCI6MjA4MzIxOTM4Mn0.xLZHAdKCRCRpYT1Lv8UUiLjcz3YxUJTIUJWHJtOe3gY';
-        
-        const supabase = supabase.createClient(SB_URL, SB_KEY);
-
-        async function kirimData() {
-            const pesan = document.getElementById('inputPesan').value;
-            const status = document.getElementById('status');
-
-            status.innerText = "Sedang mengirim...";
-
-            // Perintah untuk simpan ke tabel 'pesan_vibe'
-            const { error } = await supabase
-                .from('pesan_vibe')
-                .insert([{ isi_pesan: pesan }]);
-
-            if (error) {
-                status.innerText = "Gagal: " + error.message;
-            } else {
-                status.innerText = "Berhasil masuk ke Supabase! ✅";
-                document.getElementById('inputPesan').value = "";
-            }
-        }
+      // Polyfill for process.env to prevent crashes in libraries that expect Node environment
+      window.process = { env: { NODE_ENV: 'production' } };
     </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client?deps=react@18.2.0",
+    "react/": "https://esm.sh/react@18.2.0/",
+    "lucide-react": "https://esm.sh/lucide-react@0.344.0?deps=react@18.2.0",
+    "recharts": "https://esm.sh/recharts@2.12.2?deps=react@18.2.0,react-dom@18.2.0",
+    "@google/genai": "https://esm.run/@google/genai",
+    "xlsx": "https://esm.sh/xlsx@0.18.5",
+    "react-dom": "https://esm.sh/react-dom@18.2.0?deps=react@18.2.0",
+    "react-dom/": "https://esm.sh/react-dom@18.2.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./index.tsx"></script>
+  <script type="module" src="/index.tsx"></script>
 </body>
 </html>
